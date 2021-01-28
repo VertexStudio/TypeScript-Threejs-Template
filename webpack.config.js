@@ -1,10 +1,13 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const path = require('path');
+const webpack = require('webpack');
+
 module.exports = {
 	entry: './src/js/app.ts',
 	output: {
 		path: __dirname + "/dist",
-		filename: "bundle.js",
+		filename: "[name][chunkhash].js",
 	},
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js']
@@ -43,4 +46,18 @@ module.exports = {
 			template: './src/index.html'
 		})
   ],
+	optimization: {
+		splitChunks: {
+			cacheGroups: {
+				vendors: {
+				priority: -10,
+				test: /[\\/]node_modules[\\/]/
+				}
+		},
+		chunks: 'async',
+		minChunks: 1,
+		minSize: 30000,
+		name: "vertex"
+		}
+  	},
 }
