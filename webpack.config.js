@@ -15,6 +15,7 @@ module.exports = {
     devServer: {
 		contentBase: './dist'
 	},
+	devtool: "source-map",
 	module: {
 		rules: [
 			{
@@ -36,7 +37,25 @@ module.exports = {
 				test: /\.mp3$/,
 				exclude: /node_modules/,
 				use: [
-					{ loader: 'file-loader' }
+					{ 
+						loader: 'file-loader',
+						options: {
+							outputPath: 'assets/audio'
+						}
+					}
+				]
+			},
+			{
+				test: /\.(glb|gltf)$/,
+				exclude: /node_modules/,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							outputPath: 'assets/models'
+						} 
+						
+					}
 				]
 			}
 		]

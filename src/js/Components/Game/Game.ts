@@ -1,5 +1,7 @@
 import * as THREE from 'three';
-import {notice} from '@pnotify/core';
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+//import Lama from "../../../assets/models/lama.gltf"
 
 // Main game class to render the canvas
 
@@ -11,6 +13,7 @@ class Game {
     private scene: THREE.Scene
     private camera: THREE.PerspectiveCamera
     private object3D: THREE.Mesh
+    private controls: OrbitControls
 
     constructor(){
 
@@ -19,10 +22,10 @@ class Game {
         // orbit controls
         this.scene = new THREE.Scene()
         this.camera = new THREE.PerspectiveCamera(70, this.width/this.height,0.1,1000)
+        this.controls = new OrbitControls(this.camera, this.renderer.domElement)
         this.object3D = this.addCube()
 
         //Attach liseteners
-        this.attachListeners()
         // resize listener
         document.body.appendChild(this.renderer.domElement)
     }
@@ -36,19 +39,10 @@ class Game {
         return cube
     }
 
-    attachListeners(): void {
-        window.addEventListener("click", async ()=>{
-            console.log("Yeah!")
-            const myNotice = notice({
-                text: "I'm a notice."
-            })
-            
-        }, false)
-    }
-
     public render(): void{
         this.object3D.rotation.x += 0.01
         this.object3D.rotation.y += 0.01
+        this.controls.update()
         this.renderer.render(this.scene, this.camera)
     }
 }
