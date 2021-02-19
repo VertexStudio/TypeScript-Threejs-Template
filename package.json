@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@pnotify/core": "^5.2.0",
+    "enable3d": "^0.21.0",
     "three": "^0.125.1",
     "typescript": "^4.1.3"
   },
